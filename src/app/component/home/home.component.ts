@@ -1,65 +1,47 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
-import {MatChipsModule} from '@angular/material/chips';
-import { STATUS, Todo } from '../../models/todo.interface';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Todo } from '../../models/todo.interface';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import {MatIconModule} from '@angular/material/icon';
+import { TodoService } from '../../services/todo.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatChipsModule, MatButtonModule],
+  imports: [MatCardModule, MatIconModule, MatChipsModule, MatButtonModule, CommonModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  // Nécessaire pour Angular Material
   changeDetection: ChangeDetectionStrategy.OnPush,
-
 })
 export class HomeComponent {
 
-  todos:Todo[] = [
-    {
-      id: 1,
-      title:"Finir tp todo",
-      content: 'vite vite',
-      deadline: new Date('2025/06/25 17:00:00'),
-      status: STATUS.BUG,
-    },
-        {
-      id: 1,
-      title:"Finir tp todo",
-      content: 'vite vite',
-      deadline: new Date('2025/06/25 17:00:00'),
-      status: STATUS.TODO,
-    },
-        {
-      id: 1,
-      title:"Finir tp todo",
-      content: 'vite vite',
-      deadline: new Date('2025/06/25 17:00:00'),
-      status: STATUS.TODO,
-    },
-        {
-      id: 1,
-      title:"Finir tp todo",
-      content: 'vite vite',
-      deadline: new Date('2025/06/25 17:00:00'),
-      status: STATUS.TODO,
-    },
-        {
-      id: 1,
-      title:"Finir tp todo",
-      content: 'vite vite',
-      deadline: new Date('2025/06/25 17:00:00'),
-      status: STATUS.TODO,
-    }
-  ];
+  private todoSevice: TodoService = inject(TodoService);
+  private formBuilder: FormBuilder = inject(FormBuilder);
 
-    statusOptions:{label:string,value:number}[] = Object.entries(STATUS)
-    .filter(([key, value]) => typeof value === 'number') // évite les doublons inversés
-    .map(([key, value]) => ({
-      label: key.replace('_', ' '), // remplacement des _ par un espace
-      value: value as number
-    }));
+  todoForm: FormGroup;
+  todos: Todo[] = this.todoSevice.getTodos();
+  //Recuperer les options possibles  LABEL value
+  statusOptions = this.todoSevice.getOptions();
+
+  constructor() {
+    //Création du formGroup qui contient les formControls
+    this.todoForm = this.formBuilder.group({
+      title: ['', [Validators.required]],
+      content: ['', []],
+      status: ['', [Validators.required]],
+      deadline: ['', [Validators.required]],
+    });
+  }
+
+  submitTodo() {
+    console.log('FORM SUBMIT.');
+    console.log(this.todoForm.value);
+
+  }
 
 }

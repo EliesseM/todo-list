@@ -1,126 +1,113 @@
-TodoList,
-This project was generated with Angular CLI version 18.2.20.
+# Application TODO LIST
 
-Development server,
-Run ng serve for a dev server. Navigate to http://localhost:4200/. The application will automatically reload if you change any of the source files.
+- Config initial ✅
 
-Code scaffolding,
-Run ng generate component component-name to generate a new component. You can also use ng generate directive|pipe|service|class|guard|interface|enum|module.
+  - SCSS ✅
+  - ng add angular material ✅
+  - bootstrap ✅ ( npm et import dan style.scss)
 
-Build,
-Run ng build to build the project. The build artifacts will be stored in the dist/ directory.
+- Création dossier
+  app/components app/services app/pipes app/models
 
-Running unit tests,
-Run ng test to execute the unit tests via Karma.
+- app/models/todo.interface.ts ✅
 
-Running end-to-end tests,
-Run ng e2e to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+  interface Todo {
+  id: number,
+  title: string,
+  content: string,
+  status: number
+  date échéance: Date
+  } ✅
 
-Further help,
-To get more help on the Angular CLI use ng help or go check out the Angular CLI Overview and Command Reference page.
+  ENUM ✅
+  TODO = 1
+  IN_PROGRESS = 2
+  DONE = 3
+  BUG = 4
 
-Application TODO LIST
+- Création composants home, about ✅
 
-Gestion de todos contenant,,
-Affichage (List, card, form, boutons),,
-Interface (Todo {
-id: number,
-nom: string,
-contenu: string,
-catégorie: string (ENUM todo, on going, done, bug),
-date échéance: Date}),,
+- Affichage de app-home dans app.component.html ✅
 
-Sauvegarde des données en LocalStorage (Service),,
+- Création Todo[] en dur dans home.component ✅
 
-ajout de données saveData(todo: Todo) -> serializer + localStorage.setItem(),
-supression deleteData(todoId: number) -> récuperer le todo par ID et le delete,,
+- Affichage des todo colonne de card ✅
 
-récupération loadData() -> getItem(),,
+  - Affichage formatage des datas avec les pipes ✅
+  - Prévoir les boutons d'actions ✅
+  - Création d'un pipe perso qui prend en param un nombre ( enum STATUS ) et renvoie selon le status un émoji et le status en texte ( ⭐ bonus )
 
-Navbar lien App (Todo) et lien About (présentation...),,
+- Création du formulaire poua ajouter un Todo dans home.component.html ✅
 
-Routes /home et /about ->app.routes.ts,
-Navbar routeLink,,
+  - value par defaut NOW deadline ⭐
 
-Affichage des todos par catégorie,
-GitHub
-GitHub - angular/angular-cli: CLI tool for Angular
-CLI tool for Angular. Contribute to angular/angular-cli development by creating an account on GitHub.
+- Ajout ngSubmit coté HTML du form sur submitTodo()
 
-Angular
-The web development framework for building modern apps.
+- Méthode submitTodo() dans le ts
 
-Application TODO LIST
-Config initial ✅
+  - console.log pour afficher quelque chose a la soumisison du formulaire
 
-SCSS ✅
-ng add angular material ✅
-bootstrap ✅ ( npm et import dan style.scss)
-Création dossier app/components app/services app/pipes app/models
+  - Form builder
 
-app/models/todo.interface.ts ✅
+    - coté TS
+    - coté HTML
 
-interface Todo { id: number, title: string, content: string, status: number date échéance: Date } ✅
+  - console log état du form Valid
+  - console log data du form
 
-ENUM ✅ TODO = 1 IN_PROGRESS = 2 DONE = 3 BUG = 4
+  - Test du formulaire en cas d'erreurs
 
-Création composants home, about ✅
+  - Affichage erreur de chaque champs
 
-Affichage de app-home dans app.component.html ✅
+  - Création d'un Todo avec les datas
 
-Création Todo[] en dur dans home.component ✅
+  - Affichage des erreursseulement si le form a été soumis
 
-Affichage des todo colonne de card ✅
+- Création du TodoService qui sera en charge de la gestion des Todos stockés en localStorage ✅
 
-Affichage formatage des datas avec les pipes ✅
-Prévoir les boutons d'actions ✅
-Création d'un pipe perso qui prend en param un nombre ( enum STATUS ) et renvoie selon le status un émoji et le statu en texte
-Création du formulaire dans home.component.html
+- Stocker les datas dans un tableau dans TodoService ✅
 
-ngSubmit coté HTML du form sur submitTodo()
+- loadData()
+  localStorage.getItem("todos")
+  Si inéxistant créer un tableau vide et le renvoyer
+  Sinon convertion data et renvoie Todo[]
 
-Méthode submitTodo() dans le ts
+- saveData(todo: Todo)
 
-validation des datas / gesitons erreurs
+  - ajout aux todos existants avec les données du formulaire
 
-Création d'un Todo avec les datas
+- deleteData(todoId: number)
+  - recherche dans le tableau avec l'id ( array.find() ) et le delete
+  - mettre a jour datas
+- Navbar lien App (Todo) et lien About (présentation...)
 
-Création du TodoService qui sera en charge de la gestion des Todos stockés en localStorage
+- Routes /home et /about ->app.routes.ts
+- Navbar routeLink
 
-loadData() localStorage.getItem("todos") Si inéxistant créer un tableau vide et le renvoyer Sinon convertion data et renvoie Todo[]
+- Affichage des todos par status
 
-saveData(todo: Todo)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.20.
 
-ajout au todos existants
-appel de la méthode du service pour update du storage
-deleteData(todoId: number)
+## Development server
 
-recherche dans le tableau avec l'id ( array.find() ) et le delete
-mettre a jour datas
-Navbar lien App (Todo) et lien About (présentation...)
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-Routes /home et /about ->app.routes.ts
+## Code scaffolding
 
-Navbar routeLink
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Affichage des todos par catégorie
+## Build
 
-This project was generated with Angular CLI version 18.2.20.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-Development server
-Run ng serve for a dev server. Navigate to http://localhost:4200/. The application will automatically reload if you change any of the source files.
+## Running unit tests
 
-Code scaffolding
-Run ng generate component component-name to generate a new component. You can also use ng generate directive|pipe|service|class|guard|interface|enum|module.
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-Build
-Run ng build to build the project. The build artifacts will be stored in the dist/ directory.
+## Running end-to-end tests
 
-Running unit tests
-Run ng test to execute the unit tests via Karma.
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-Running end-to-end tests
-Run ng e2e to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Further help
 
-Further help
-To get more help on the Angular CLI use ng help or go check out the Angular CLI Overview and Command Reference page.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
